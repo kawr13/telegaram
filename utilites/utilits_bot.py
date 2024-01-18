@@ -4,6 +4,8 @@ import os
 import re
 import requests
 import json
+import asyncio
+import aiohttp
 
 PATTERN2 = re.compile(r'\b[A-Za-z]{4}\d{7}\b')
 PATTERN = re.compile(r'\b[A-Z]{4}\s+?(\d+)\s?\d')
@@ -50,6 +52,14 @@ def data_cont(contNum: str) -> json:
     url = f'http://83.68.49.221:8080/status_cont/{contNum}/?format=json'
     response = requests.get(url)
     return response.json()
+
+
+async def data_async_cont(contNum: str) -> json:
+    url = f'http://83.68.49.221:8080/status_cont/{contNum}/?format=json'
+    async with aiohttp.ClientSession() as session:
+        async with session.get(url) as response:
+            return await response.json()
+
 
 if __name__ == '__main__':
     # pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'

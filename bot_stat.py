@@ -14,7 +14,7 @@ from aiogram.types import ReplyKeyboardMarkup, KeyboardButton, ReplyKeyboardRemo
 from config import BOT_TOKEN
 from aiogram.fsm.context import FSMContext
 from app.keyboards import main_kb, inspection_kb, completion, data_conteiner, start_kb, canceling_kb
-from utilites.utilits_bot import coincidence, data_cont
+from utilites.utilits_bot import coincidence, data_cont, data_async_cont
 from aiogram import Router
 from form.forms import Form, Stat
 from datetime import datetime
@@ -40,21 +40,23 @@ async def detecting(message: Message, state: FSMContext):
     if coincidence(message.text) and len(message.text) == 11:
         option = False
         cont_num = message.text.upper()
-        data = data_cont(cont_num)
-        response_message = f'Контейнер: {data["result"][0]["ContNum"]}\nЗаявки:\n'
+        data = await data_async_cont(cont_num)
+        response_message = f'Контейнер: {data["result"][0]["ContNum"]}\nЗаявка:\n'
         for dat in data.get("result"):
             if dat['Status'] is False:
                 print(dat)
                 continue
             else:
+                date_object_until = datetime.strptime(dat["Until"], "%Y-%m-%dT%H:%M:%S")
                 date_object = datetime.strptime(dat["From"], "%Y-%m-%dT%H:%M:%S")
-                formatted_date_from = date_object.strftime("%Y-%m-%d %H:%M:%S")
-                date_object = datetime.strptime(dat["From"], "%Y-%m-%dT%H:%M:%S")
-                formatted_date_from = date_object.strftime("%Y-%m-%d %H:%M:%S")
+                formatted_date_from = date_object.strftime("%d.%m.%Y")
+                formatted_date_until = date_object_until.strftime("%d.%m.%Y")
                 response_message += (
-                    f"ID: {str(dat['RezCode'])}\n"
-                    f"Дата: {formatted_date}\n"
-                    f"Статус: {dat['Status']}"
+                    # f"Срок действия:\n"
+                    # f"{formatted_date_from} - {formatted_date_until}\n"  
+                    f"начало действия заявки: 00:00 {formatted_date_from}\n"
+                    f"конец действия заявки:   23:59 {formatted_date_until}\n"
+                    # f"Статус: {dat['Status']}"
                 )
 
         if len(response_message.split()) == 3:
