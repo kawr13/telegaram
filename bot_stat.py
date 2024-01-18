@@ -65,7 +65,7 @@ async def detecting(message: Message, state: FSMContext):
         
     elif message.text == 'Завершить':
             messages = 'Выберите действие'
-            await message.reply(messages, reply_markup=main_kb)
+            await message.reply('/start', reply_markup=main_kb)
             await state.clear()
     else:
         messages = 'Номер введен некорректно'
