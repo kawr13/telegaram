@@ -60,6 +60,10 @@ async def data_async_cont(contNum: str) -> json:
         async with session.get(url) as response:
             return await response.json()
 
+async def cont_read(text: str):
+    matches = re.findall(r'[A-Z0-9]{11}', text)
+    return matches
+
 
 if __name__ == '__main__':
     # pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
@@ -68,6 +72,6 @@ if __name__ == '__main__':
     # data = data_cont('NEPU4570390')
     # for dat in data.get("result"):
     #     print(dat.get("ContNum"))
-    text = '''Контейнер: NEPU4570390
-Заявки:'''
-    print(len(text))
+    text = 'NEPU4571987SEGU4093000SEKU6553080,NEPU4548375,NPTU4504901,NEPU4561802,NEPU4522473'
+    matches = re.findall(r'[A-Z0-9]{11}', text)
+    print(matches)
