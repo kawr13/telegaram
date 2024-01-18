@@ -36,7 +36,7 @@ canceling_kb = ReplyKeyboardMarkup(
     keyboard=[
         [
             KeyboardButton(text="Завершить"),
-            KeyboardButton(text="Отмена"),
+            # KeyboardButton(text="Отмена"),
         ]
     ],
     resize_keyboard=True,
