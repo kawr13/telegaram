@@ -49,13 +49,13 @@ def coincidence(text: str):
 
 
 def data_cont(contNum: str) -> json:
-    url = f'http://83.68.49.221:8080/status_cont/{contNum}/?format=json'
+    url = f'http://10.16.11.205:8080/status_cont/{contNum}/?format=json'
     response = requests.get(url)
     return response.json()
 
 
 async def data_async_cont(contNum: str) -> json:
-    url = f'http://83.68.49.221:8080/status_cont/{contNum}/?format=json'
+    url = f'http://10.16.11.205:8080/status_cont/{contNum}/?format=json'
     async with aiohttp.ClientSession() as session:
         async with session.get(url) as response:
             return await response.json()

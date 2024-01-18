@@ -41,7 +41,7 @@ async def detecting(message: Message, state: FSMContext):
         option = False
         cont_num = message.text.upper()
         data = await data_async_cont(cont_num)
-        response_message = f'Контейнер: {data["result"][0]["ContNum"]}\nЗаявка:\n'
+        response_message = f'Контейнер: {data["result"][0]["ContNum"]}\n'
         for dat in data.get("result"):
             if dat['Status'] is False:
                 print(dat)
@@ -55,7 +55,7 @@ async def detecting(message: Message, state: FSMContext):
                     # f"Срок действия:\n"
                     # f"{formatted_date_from} - {formatted_date_until}\n"  
                     f"начало действия заявки: 00:00 {formatted_date_from}\n"
-                    f"конец действия заявки:   23:59 {formatted_date_until}\n"
+                    f"окончание:   23:59 {formatted_date_until}\n"
                     # f"Статус: {dat['Status']}"
                 )
 
@@ -68,7 +68,7 @@ async def detecting(message: Message, state: FSMContext):
             await message.reply(messages, reply_markup=main_kb)
             await state.clear()
     else:
-        messages = 'Номер введен не корректно'
+        messages = 'Номер введен некорректно'
         await message.reply(messages, reply_markup=canceling_kb)
         await state.set_data()
 
