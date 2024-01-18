@@ -63,10 +63,10 @@ async def detecting(message: Message, state: FSMContext):
             response_message += 'Нет заявок'
         await message.reply(response_message, reply_markup=canceling_kb)
         
-    elif message.text == 'Завершить':
-            messages = 'Выберите действие'
-            await message.reply(message, reply_markup=main_kb)
-            await state.clear()
+    elif message.text == 'Завершить': 
+        messages = 'Выберите действие'
+        await message.reply(message.text, reply_markup=main_kb)
+        await state.clear()
     else:
         messages = 'Номер введен некорректно'
         await message.reply(messages, reply_markup=canceling_kb)
