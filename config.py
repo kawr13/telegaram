@@ -1,0 +1,4 @@
+import os
+
+BOT_TOKEN = "6674563089:AAG0h-YpZbnFWUaGw1JgLpswbRHUUV02eW4"
+post_pass = '5008mN0850'
